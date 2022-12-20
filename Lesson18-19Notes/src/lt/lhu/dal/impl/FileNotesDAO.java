@@ -19,7 +19,7 @@ public class FileNotesDAO implements NotesDAO {
 	private List<Note> notes = new ArrayList<Note>();
 
 	private static final String SOURCE_PATH = "/notes.txt";
-	
+
 	private static final int CREATION_DATE = 0;
 
 	private static final int TITLE = 1;
@@ -30,30 +30,29 @@ public class FileNotesDAO implements NotesDAO {
 
 	public FileNotesDAO() throws Exception {
 
-			FileReader fileReader = null;
-			BufferedReader bufferReader = null;
-			try {
-				fileReader = new FileReader(SOURCE_PATH);
-				bufferReader = new BufferedReader(fileReader);
-				String nextReadLine;
-				
-				while ((nextReadLine = bufferReader.readLine ()) != null) {
-					try {
-						if (nextReadLine != EMPTY_STRING) {
-							String[] data = nextReadLine.split(";");
-							LocalDateTime dateTime = LocalDateTime.parse(data[CREATION_DATE]);
-							Note note = new Note(dateTime, data[TITLE], data[CONTENT]);
-							notes.add(note);
-						}	
-					} catch (Exception e) {
-						throw new NewDAOException("Row can't be empty: " + e.getMessage());
-					}
+		FileReader fileReader = null;
+		BufferedReader bufferReader = null;
+		try {
+			fileReader = new FileReader(SOURCE_PATH);
+			bufferReader = new BufferedReader(fileReader);
+			String nextReadLine;
+
+			while ((nextReadLine = bufferReader.readLine()) != null) {
+
+				if (nextReadLine != EMPTY_STRING) {
+					String[] data = nextReadLine.split(";");
+					LocalDateTime dateTime = LocalDateTime.parse(data[CREATION_DATE]);
+					Note note = new Note(dateTime, data[TITLE], data[CONTENT]);
+					notes.add(note);
 				}
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			} finally {
-				bufferReader.close();
 			}
+		} catch (IOException e) {
+			throw new NewDAOException("Row can't be empty: ", e);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			bufferReader.close();
+		}
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class FileNotesDAO implements NotesDAO {
 		try {
 			BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, true));
 
-			bufferWriter.write(LocalDateTime.now() + ";" +note.getTitle()  + ";" + note.getContent() + "\n");
+			bufferWriter.write(LocalDateTime.now() + ";" + note.getTitle() + ";" + note.getContent() + "\n");
 			bufferWriter.flush();
 			bufferWriter.close();
 		} catch (IOException e) {
