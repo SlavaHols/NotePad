@@ -12,20 +12,22 @@ public class NotesCreateServiceImpl implements NotesCreateService {
 	@Override
 	public void add(Note n) throws NewServiceException {
 
-		if (n == null) {
-			throw new NewServiceException("It's empty here");
-		}
-		try {
+		DAOProvider provider = DAOProvider.getInstance();
 
-			DAOProvider provider = DAOProvider.getInstance();
+		NotesDAO notesDAO = provider.getNotesDAO();
 
-			NotesDAO notesDAO = provider.getNotesDAO();
+		NotesValidationServiceImpl validation = new NotesValidationServiceImpl();
 
-			notesDAO.save(n);
-		} catch (NewDAOException e) {
-			throw new NewServiceException(e);
+		if (validation.dateValid(n.getDate()) & validation.titleValid(n.getTitle())
+				& validation.contentValid(n.getContent())) {
+
+			try {
+				notesDAO.save(n);
+			} catch (NewDAOException e) {
+				throw new NewServiceException(e);
+			}
+
 		}
 
 	}
-
 }

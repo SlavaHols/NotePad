@@ -1,57 +1,111 @@
 package lt.lhu.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import lt.lhu.dal.DAOProvider;
 import lt.lhu.dal.NotesDAO;
 import lt.lhu.dal.exception.NewDAOException;
-import lt.lhu.dal.impl.FileNotesDAO;
+
 import lt.lhu.entity.Note;
 import lt.lhu.service.NotesFindService;
 import lt.lhu.service.exception.NewServiceException;
 
-public class NotesFindServiceImpl implements NotesFindService {
+public  class NotesFindServiceImpl implements NotesFindService {
+
+	@Override
+	public List<Note> findByTitle(String title) throws NewServiceException {
+
+		DAOProvider provider = DAOProvider.getInstance();
+
+		NotesDAO notesDAO = provider.getNotesDAO();
+
+		List<Note> sourceList;
+		try {
+			sourceList = notesDAO.load();
+
+		} catch (NewDAOException e) {
+
+			throw new NewServiceException();
+		}
+
+		List<Note> foundData = new ArrayList<>();
+
+		NotesValidationServiceImpl validation = new NotesValidationServiceImpl();
+
+		if (validation.titleValid(title)) {
+
+			for (Note Note : sourceList) {
+
+				if (Note.getTitle().contains(title)) {
+
+					foundData.add(Note);
+				}
+			}
+		}
+		return foundData;
+	}
 
 	@Override
 	public List<Note> findByContent(String content) throws NewServiceException {
 
-		if (content == null) {
-			throw new NewServiceException("Content not found.");
-		}
+		DAOProvider provider = DAOProvider.getInstance();
+
+		NotesDAO notesDAO = provider.getNotesDAO();
+
+		List<Note> sourceList;
+
 		try {
+			sourceList = notesDAO.load();
 
-			DAOProvider provider = DAOProvider.getInstance();
-
-			NotesDAO notesDAO = provider.getNotesDAO();
-
-			List<Note> sourceList = notesDAO.load(); // лампочка : The value of the local variable sourceList is not used.
-													
-
-			return null;
 		} catch (NewDAOException e) {
+
 			throw new NewServiceException(e);
 		}
+		List<Note> foundData = new ArrayList<>();
+
+		NotesValidationServiceImpl validation = new NotesValidationServiceImpl();
+
+		if (validation.contentValid(content)) {
+
+			for (Note Note : sourceList) {
+
+				if (Note.getContent().contains(content)) {
+					foundData.add(Note);
+				}
+			}
+		}
+		return foundData;
 	}
 
-	@Override
-	public List<Note> findByDate(Date date) throws NewServiceException {
+	@Override 
+	
+	public List<Note> findByDate(LocalDateTime date) throws NewServiceException {
 
-		if (date == null) {
-			throw new NewServiceException("Date not found. ");
-		}
+		DAOProvider provider = DAOProvider.getInstance();
+
+		NotesDAO notesDAO = provider.getNotesDAO();
+
+		List<Note> sourceList;
 		try {
+			sourceList = notesDAO.load();
 
-			DAOProvider provider = DAOProvider.getInstance();
-
-			NotesDAO notesDAO = provider.getNotesDAO();
-
-			List<Note> sourceList = notesDAO.load(); // лампочка : The value of the local variable sourceList is not used.
-														
-
-			return null;
 		} catch (NewDAOException e) {
+
 			throw new NewServiceException(e);
 		}
+		List<Note> foundData = new ArrayList<>();
+
+		NotesValidationServiceImpl validation = new NotesValidationServiceImpl();
+		if (validation.dateValid(date) & validation.dateValid(date)) {
+			for (Note Note : sourceList) {
+
+				if (Note.getDate().equals(date)) {
+					foundData.add(Note);
+				}
+			}
+		}
+		return foundData;
 	}
 }

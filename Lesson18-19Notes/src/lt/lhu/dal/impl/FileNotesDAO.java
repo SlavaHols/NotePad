@@ -28,7 +28,7 @@ public class FileNotesDAO implements NotesDAO {
 
 	private static final String EMPTY_STRING = "";
 
-	public FileNotesDAO() throws Exception {
+	public FileNotesDAO() throws NewDAOException {
 
 		FileReader fileReader = null;
 		BufferedReader bufferReader = null;
@@ -48,10 +48,10 @@ public class FileNotesDAO implements NotesDAO {
 			}
 		} catch (IOException e) {
 			throw new NewDAOException("Row can't be empty: ", e);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		} finally {
-			bufferReader.close();
+			bufferReader.close();                               // Unhandled exception type IOException
 		}
 	}
 
