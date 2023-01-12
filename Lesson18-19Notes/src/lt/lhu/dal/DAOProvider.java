@@ -10,11 +10,11 @@ public final class DAOProvider {
 
 	private DAOProvider() {
 		try {
-			notesDAO = new FileNotesDAO();       // Unhandled exception type Exception
+			notesDAO = new FileNotesDAO();       
 			
 		} catch (NewDAOException e) {
 			
-			throw new RuntimeException("");
+			throw new RuntimeException(" ");
 		}
 	}
 

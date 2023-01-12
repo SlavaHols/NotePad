@@ -48,10 +48,14 @@ public class FileNotesDAO implements NotesDAO {
 			}
 		} catch (IOException e) {
 			throw new NewDAOException("Row can't be empty: ", e);
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
+
 		} finally {
-			bufferReader.close();                               // Unhandled exception type IOException
+			try {
+				bufferReader.close();
+			} catch (Exception ex) {
+				throw new NewDAOException(ex);
+			
+			}
 		}
 	}
 

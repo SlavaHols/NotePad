@@ -4,11 +4,10 @@ public class View {
 	public void view(String performance) {
 
 		if (performance == null) {
-			System.out.println("No records found");
+			System.out.println("Record is empty");
 		} else {
 
 			System.out.println(performance);
-			System.out.println(">>>>>");
 
 		}
 	}

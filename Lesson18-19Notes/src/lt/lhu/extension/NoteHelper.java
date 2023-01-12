@@ -5,17 +5,20 @@ import java.util.List;
 import lt.lhu.entity.Note;
 
 public class NoteHelper {
-	public static String toString(List<Note> records) {
-		StringBuilder sb = new StringBuilder();
+
+	public static String format(List<Note> records) {
+
+		StringBuilder stringBuilder = new StringBuilder();
+
 		for (Note note : records) {
-			sb.append(note.getDate());
-			sb.append(";");
-			sb.append(note.getTitle());
-			sb.append(";");
-			sb.append(note.getContent());
-			sb.append("\n");
+			stringBuilder.append(note.getDate());
+			stringBuilder.append(";");
+			stringBuilder.append(note.getTitle());
+			stringBuilder.append(";");
+			stringBuilder.append(note.getContent());
+			stringBuilder.append("\n");
 		}
-		return sb.toString();
+		return stringBuilder.toString();
 
 	}
 }

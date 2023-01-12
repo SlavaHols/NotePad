@@ -18,7 +18,7 @@ public class SearchByTitle implements Command {
 		NotesFindServiceImpl service = new NotesFindServiceImpl();
 
 		try {
-			return new NotePerformance(10, NoteHelper.toString(service.findByTitle(title)));
+			return new NotePerformance(10, NoteHelper.format(service.findByTitle(title)));
 
 		} catch (NewServiceException e) {
 			return new NotePerformance(20, "Error!!!");

@@ -1,5 +1,6 @@
 package lt.lhu.dal.exception;
 
+
 @SuppressWarnings("serial")
 public class NewDAOException extends Exception {
 	

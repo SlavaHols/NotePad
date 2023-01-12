@@ -1,5 +1,7 @@
 package lt.lhu.controller.impl;
 
+
+
 import lt.lhu.controller.Command;
 import lt.lhu.controller.NotePerformance;
 import lt.lhu.dal.exception.NewDAOException;
@@ -19,7 +21,7 @@ public class SearchByDate implements Command {
 		NotesFindServiceImpl service = new NotesFindServiceImpl();
 
 		try {
-			return new NotePerformance(10, NoteHelper.toString(service.findByDate(date)));      //The method findByDate(LocalDateTime) in  
+			return new NotePerformance(10, NoteHelper.format(service.findByTitle(date)));      //The method findByDate(LocalDateTime) in  
                                                                                                 // the type NotesFindServiceImpl is not applicable for the arguments (String)
 		} catch (NewServiceException e) {
 			return new NotePerformance(20, "Error!!!");

@@ -1,28 +1,28 @@
 package lt.lhu.controller;
 
 public class NotePerformance {
-	private int position;
+	private int situation;
 
 	private String performance;
 
 	public NotePerformance() {
 	}
 
-	public NotePerformance(int position, String performance) {
-		this.position = position;
+	public NotePerformance(int situation, String performance) {
+		this.situation = situation;
 		this.performance = performance;
 	}
 
-	public NotePerformance(int position) {
-		this.position = position;
+	public NotePerformance(int situation) {
+		this.situation = situation;
 	}
 
-	public void setPosition(int position) {
-		this.position = position;
+	public void setSituation(int situation) {
+		this.situation = situation;
 	}
 
-	public int getPosition() {
-		return position;
+	public int getSituation() {
+		return situation;
 	}
 
 	public void setPerformance(String performance) {

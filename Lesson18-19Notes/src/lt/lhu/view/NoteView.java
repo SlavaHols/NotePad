@@ -6,6 +6,6 @@ import lt.lhu.entity.Note;
 
 public interface NoteView {
 
-	void view(List<Note> records);
+	 void view (List<Note> records);
 
 }

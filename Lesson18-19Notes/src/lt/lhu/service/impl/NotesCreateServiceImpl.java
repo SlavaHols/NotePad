@@ -10,7 +10,7 @@ import lt.lhu.service.exception.NewServiceException;
 public class NotesCreateServiceImpl implements NotesCreateService {
 
 	@Override
-	public void add(Note n) throws NewServiceException {
+	public void add(Note note) throws NewServiceException {
 
 		DAOProvider provider = DAOProvider.getInstance();
 
@@ -18,11 +18,11 @@ public class NotesCreateServiceImpl implements NotesCreateService {
 
 		NotesValidationServiceImpl validation = new NotesValidationServiceImpl();
 
-		if (validation.dateValid(n.getDate()) & validation.titleValid(n.getTitle())
-				& validation.contentValid(n.getContent())) {
+		if (validation.dateValid(note.getDate()) & validation.titleValid(note.getTitle())
+				& validation.contentValid(note.getContent())) {
 
 			try {
-				notesDAO.save(n);
+				notesDAO.save(note);
 			} catch (NewDAOException e) {
 				throw new NewServiceException(e);
 			}

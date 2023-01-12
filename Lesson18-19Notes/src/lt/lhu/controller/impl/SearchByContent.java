@@ -18,7 +18,7 @@ public class SearchByContent implements Command {
 		NotesFindServiceImpl service = new NotesFindServiceImpl();
 
 		try {
-			return new NotePerformance(10, NoteHelper.toString(service.findByContent(content)));
+			return new NotePerformance(10, NoteHelper.format(service.findByContent(content)));
 
 		} catch (NewServiceException e) {
 			return new NotePerformance(20, "Error!!!!");

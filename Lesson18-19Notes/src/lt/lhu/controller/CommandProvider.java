@@ -10,8 +10,8 @@ import lt.lhu.controller.impl.SearchByTitle;
 import lt.lhu.controller.impl.View;
 import lt.lhu.controller.impl.WrongRequest;
 
-public class CommandProvider {
-	private final Map<NameCommand, Command> repository = new HashMap();
+final class CommandProvider {
+	private final Map<NameCommand, Command> repository = new HashMap<NameCommand, Command>();
 
 	CommandProvider() {
 		repository.put(NameCommand.SAVE, new Save());
@@ -34,5 +34,5 @@ public class CommandProvider {
 		}
 		return command;
 
-}
+	}
 }
