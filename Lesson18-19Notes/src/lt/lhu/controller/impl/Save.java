@@ -19,7 +19,7 @@ public class Save implements Command {
 	private static final int CONTENT = 1;
 
 	@Override
-	public NotePerformance execute(String request) throws NewDAOException {
+	public NotePerformance execute(String request)  {
 
 		String dataRaw = request.substring(request.indexOf(paramDelimeter));
 

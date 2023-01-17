@@ -27,7 +27,7 @@ public  class NotesFindServiceImpl implements NotesFindService {
 
 		} catch (NewDAOException e) {
 
-			throw new NewServiceException();
+			throw new NewServiceException(e);
 		}
 
 		List<Note> foundData = new ArrayList<>();
