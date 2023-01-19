@@ -1,7 +1,10 @@
 package lt.lhu.dal.impl;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,12 +68,25 @@ public class FileNotesDAO implements NotesDAO {
 	public void save(Note note) throws NewDAOException {
 
 		notes.add(note);
+		File file = new File(SOURCE_PATH);
+		BufferedWriter writer = null;
+
 		StringBuilder stringBuilder = new StringBuilder();
+
 		stringBuilder.append(LocalDateTime.now());
 		stringBuilder.append(";");
 		stringBuilder.append(note.getTitle());
 		stringBuilder.append(";");
 		stringBuilder.append(note.getContent());
 		stringBuilder.append("\n");
+		try {
+			writer = new BufferedWriter(new FileWriter(file, true));
+			writer.append(stringBuilder);
+			writer.flush();
+			writer.close();
+
+		} catch (IOException e) {
+			throw new NewDAOException(e);
+		}
 	}
 }
